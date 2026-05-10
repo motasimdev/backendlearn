@@ -1,0 +1,8 @@
+** Documentation for Mongo DB
+1- Go to Mongo DB > Signin with gmail
+2- Primary Goal > Learning
+3- Select Free Plan 
+4- Select Database and Network Access
+5- Go to IP Access List
+6- Database Access > New Database User > Read & Write
+7- 
