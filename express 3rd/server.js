@@ -1,41 +1,36 @@
-const mongoose = require('mongoose');
 const express = require("express");
+const mongoose = require("mongoose");
+const userList = require("./model/userSchema.js");
 const app = express();
 const port = 3000;
-
 app.use(express.json());
-//mongodb+srv://mern2407:<db_password>@cluster0.ptmdayy.mongodb.net/?appName=Cluster0
 
-const user = [
-  {
-    name: "motasim",
-    number: 1234,
-    email: "m@gmail.com",
-  },
-  {
-    name: "masum",
-    number: 1234,
-    email: "m@gmail.com",
-  },
-  {
-    name: "julku",
-    number: 1234,
-    email: "m@gmail.com",
-  },
-];
-
-app.get("/user", (req, res) => {
-  res.json(user);
-});
+try {
+  mongoose.connect(
+    "mongodb+srv://mern2407:motasim@cluster0.ptmdayy.mongodb.net/userinfo?appName=Cluster0",
+  );
+  console.log("connected");
+} catch (error) {
+  handleError(error);
+}
+mongoose
+  .connect(
+    "mongodb+srv://mern2407:motasim@cluster0.ptmdayy.mongodb.net/userinfo?appName=Cluster0",
+  )
+  .then(() => console.log("Connected!"));
 
 app.post("/user", (req, res) => {
-  // res.json(user);
-  // res.send(user);
-  const some = req.body;
-  console.log(some);
-  res.json("ok done");
+  const { name, email, number } = req.body;
+  console.log(name, email, number);
+  const user = new userList({
+    name: name,
+    email: email,
+    number: number,
+  });
+  user.save();
+  res.send("data gese?");
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`app listening on port ${port}`);
 });
