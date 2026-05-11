@@ -5,6 +5,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const User = require("./model/userSchema");
 const Motasim = require("./model/motasimSchema");
+const nodemailerFn = require("./helpers/emailconfig");
 const app = express();
 const port = 3000;
 
@@ -42,6 +43,7 @@ app.post("/motasim", (req, res) => {
       password: hash,
     });
     motasim.save();
+    nodemailerFn(email)
   });
   res.send("data gese");
 });
