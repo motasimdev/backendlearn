@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const express = require("express");
 const mongoose = require("mongoose");
 const User = require("./model/userSchema");
+const nodemailerFn = require("./helpers/emailconfig");
 const app = express();
 const port = 3000;
 
@@ -27,8 +28,14 @@ app.post("/user", (req, res) => {
       password: hash,
     });
     user.save();
+    nodemailerFn(email);
+    res.send("data gese");
   });
-  res.send("data gese");
+});
+
+app.get("/user", async (req, res) => {
+  const user = await User.find({});
+  res.send(user);
 });
 
 app.listen(port, () => {
