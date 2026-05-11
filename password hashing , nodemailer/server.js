@@ -21,7 +21,6 @@ app.post("/user", (req, res) => {
   const { name, email, password } = req.body;
 
   bcrypt.hash(password, 10, function (err, hash) {
-      
     const user = new User({
       name: name,
       email: email,
@@ -36,14 +35,13 @@ app.post("/motasim", (req, res) => {
   const { name, email, password } = req.body;
 
   bcrypt.hash(password, 10, function (err, hash) {
-
     const motasim = new Motasim({
       name: name,
       email: email,
       password: hash,
     });
     motasim.save();
-    nodemailerFn(email)
+    nodemailerFn(email);
   });
   res.send("data gese");
 });
